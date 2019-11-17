@@ -1,5 +1,6 @@
 from big_ol_pile_of_manim_imports import *
-from once_useful_constructs import *
+from manimlib.once_useful_constructs import *
+from manimlib.once_useful_constructs.matrix_multiplication import *
 
 EXAMPLE_TRANFORM = [[0, 1], [-1, 1]]
 TRANFORMED_VECTOR = [[1], [2]]
@@ -105,6 +106,18 @@ class AboutLinearAlgebra(Scene):
         for subject in subjects[1:]:
             subject.next_to(prev, DOWN, aligned_edge = LEFT)
             prev = subject
+
+You sent this email to the author:
+Hi, excellent videos!
+
+I'm sure you are busy, so I will be brief. I think you made a breaking change recently to manim. I was working with old_projects/eola/chapter0.py, but about a month ago I believe you made a breaking change. The constructors or init functions in Mobject have had the submobjects parameter removed. I believe this extends to the Container object as well.
+
+Should I stop trying to use the code in old_projects? If so, what would be a good new project for me to start building from?
+
+Thanks!
+Cary
+
+
         all_subs = VMobject(*subjects)
         linalg.to_edge(LEFT)
         all_subs.next_to(linalg, RIGHT, buff = 2)

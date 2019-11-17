@@ -425,6 +425,7 @@ class SetupSimpleSystemOfEquations(LinearTransformationScene):
             self.remove(big_system, system)
             self.add(system)
 
+
     def from_system_to_matrix(self):
         # dim = len(self.matrix)
         system_in_lines = self.system
@@ -441,7 +442,11 @@ class SetupSimpleSystemOfEquations(LinearTransformationScene):
         corner_rect.set_height(2)
         corner_rect.to_corner(UL, buff=0)
 
-        self.play(system_in_lines.to_edge, UP)
+        rectangle = Rectangle(height=1, width=2)
+        rectangle = Rectangle(height=0.2, width=0.4)
+        self.play(system_in_lines.to_edge, 2*UP)
+        self.play(rectangle.to_edge, BOTTOM+LEFT)
+        # self.play(rectangle.to_edge, 2*BOTTOM)
         system_in_lines_copy = system_in_lines.deepcopy()
         self.play(
             ReplacementTransform(
@@ -2199,9 +2204,28 @@ class Introduce3DSystem(SetupSimpleSystemOfEquations):
     }
 
     def construct(self):
+        parabola = FunctionGraph(
+            lambda x : (3-x)*(3+x)/4,
+            x_min = -4, 
+            x_max = 4
+        )
         self.remove_grid()
+        # self.projectile(parabola)
         self.introduce_system()
         self.from_system_to_matrix()
+
+
+    def projectile(self, parabola):
+        dot = Rectangle(height=2, width=3)
+        kwargs = {
+            "run_time" : 3,
+            "rate_func" : None
+        }
+        self.play(
+            MoveAlongPath(dot, parabola.copy(), **kwargs),
+            ShowCreation(parabola, **kwargs)
+        )
+        self.wait()
 
 
 class MysteryInputLabel(Scene):
